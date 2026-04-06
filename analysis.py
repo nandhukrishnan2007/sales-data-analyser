@@ -1,0 +1,33 @@
+import pandas as pd
+data=pd.read_csv("data.csv")
+data["sales"]=data["sales"].fillna(0)
+data["profit"]=data["profit"].fillna(0)
+print(data)
+print("avarage sales",data["sales"].mean())
+print("total profit",data["profit"].sum())
+print("\n---highest sales---")
+print(data[data["sales"]>500])
+print("\n---lowest sales---")
+print(data[data["sales"]<300])
+import matplotlib.pyplot as plt
+plt.figure(figsize=(10,5))
+plt.subplot(1,2,1)
+plt.bar(data["name"],data["sales"])
+plt.title("sales by person")
+plt.xlabel("name")
+plt.ylabel("sales")
+
+plt.subplot(1,2,2)
+plt.bar(data["name"],data["profit"])
+plt.title("profit by person")
+plt.xlabel("name")
+plt.ylabel("profit")
+plt.tight_layout()
+plt.show()
+top=data.loc[data["sales"].idxmax()]
+print("\n---highest sales---",)
+print(top)
+low=data.loc[data["sales"].idxmin()]
+print("\n---lowest values---")
+print(low)
+data.to_csv("cleaned_data.csv",index=False)
